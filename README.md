@@ -2,7 +2,7 @@
 SDET project for the Unosquare centre of excellence
 
 ## Problem definition:
-It is necessary to create a web app that randomize the usage of bass tequniques and music scales so that practice time is improved as it would cover more aread to improve.
+It is necessary to create a web app that randomize the usage of bass tequniques and music scales so that practice time is improved as it would cover more areas in the bass playing world.
 
 
 #### Must Have
