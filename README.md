@@ -23,3 +23,8 @@ It is necessary to create a web app that randomize the usage of bass tequniques 
 #### Will not Have
 - Notifications.
 - A mobile interface.
+
+## Domain Object Model:
+
+![Alt text](./Images/DOM.svg)
+<img src="./Images/DOM.svg">
