@@ -26,4 +26,4 @@ It is necessary to create a web app that randomize the usage of bass tequniques 
 
 ## Domain Object Model:
 
-<img src="./Images/DOM.svg">
+<img src="./Images/DOM(1).svg">
