@@ -25,5 +25,12 @@ It is necessary to create a web app that randomize the usage of bass tequniques 
 - A mobile interface.
 
 ## Domain Object Model:
-
-<img src="./Images/DOM(1).svg">
+```mermaid
+%%{init: {'theme':'dark'}}%%
+erDiagram
+    User ||--o{ Project: creates
+    Project||--o{ Song: contains
+    Project ||--o{ Routine : contains
+    User ||--o{ Song: manages
+    User ||--o{ Routine: manages
+```
