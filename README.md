@@ -34,7 +34,7 @@ erDiagram
     User ||--o{ Routine: manages
 ```
 
-## Entity Relationship Diagram
+## Entity Relationship Diagram:
 ```mermaid
 %%{init: {'theme':'dark'}}%%
 erDiagram
