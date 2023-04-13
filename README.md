@@ -38,7 +38,7 @@ erDiagram
 ```mermaid
 %%{init: {'theme':'dark'}}%%
 erDiagram
-    users ||--|| projects : creates
+    users ||--|{ projects : ""
     users {
         int id PK
         varchar first_name
@@ -46,8 +46,8 @@ erDiagram
         varchar email
         varchar password
     }
-    projects ||--|{ project_songs : contains
-    projects ||--|{ routines : contains
+    projects ||--|{ project_songs : ""
+    projects ||--|{ routines : ""
     projects {
         int id PK
         varchar name
@@ -55,56 +55,57 @@ erDiagram
         int user_id FK
 
     }
-    project_songs ||--|{ practice_songs : includes
-    project_songs ||--|{ songs : includes
+    project_songs ||--|{ practice_songs : ""
+    project_songs ||--|{ songs : ""
     project_songs {
         int id PK
-        int projectId FK
-        int songId FK
+        int project_id FK
+        int song_id FK
 
     }
-    songs ||--|{ song_genres : includes
+    songs ||--|{ song_genres : ""
     songs {
         int id PK
         varchar name
         varchar artist
         varchar album
     }
-    song_genres ||--|{ genres : includes
+    song_genres ||--|{ genres : ""
     song_genres {
         int id PK
-        int songId FK
-        int genreId FK
+        int song_id FK
+        int genre_id FK
     }
     genres {
         int id PK
-        varchar genre_name
+        varchar name
     }
-    practice_songs ||--|{ practice : includes
+    practice_songs ||--|{ practice : ""
     practice_songs{
-        int id pk
+        int id PK
         varchar description
-        int practiceId FK
-        int routineId FK
+        int sequence
+        int practice_id FK
+        int song_id FK
     }
 
-    practice ||--|{ routines: includes
+    practice ||--|{ routines: ""
     practice {
         int id PK
         varchar name
         dateFormat date_created
-        int routineId FK
+        int routine_id FK
 
     }
-    routines ||--|{ scales: includes
-    routines ||--|{ techniques: includes
+    routines ||--|{ scales: ""
+    routines ||--|{ techniques: ""
     routines {
         int id PK
         varchar name
         varchar description
-        int projectId FK
-        int techniqueId FK
-        int scaleId FK
+        int project_id FK
+        int technique_id FK
+        int scale_id FK
     }
     scales {
         int id PK
