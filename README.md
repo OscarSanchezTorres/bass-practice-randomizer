@@ -33,3 +33,87 @@ erDiagram
     User ||--o{ Song: manages
     User ||--o{ Routine: manages
 ```
+
+## Entity Relationship Diagram
+```mermaid
+%%{init: {'theme':'dark'}}%%
+erDiagram
+    users ||--|| projects : creates
+    users {
+        int id PK
+        varchar first_name
+        varchar second_name
+        varchar email
+        varchar password
+    }
+    projects ||--|{ project_songs : contains
+    projects ||--|{ routines : contains
+    projects {
+        int id PK
+        varchar name
+        dateFormat date_created
+        int user_id FK
+
+    }
+    project_songs ||--|{ practice_songs : includes
+    project_songs ||--|{ songs : includes
+    project_songs {
+        int id PK
+        int projectId FK
+        int songId FK
+
+    }
+    songs ||--|{ song_genres : includes
+    songs {
+        int id PK
+        varchar name
+        varchar artist
+        varchar album
+    }
+    song_genres ||--|{ genres : includes
+    song_genres {
+        int id PK
+        int songId FK
+        int genreId FK
+    }
+    genres {
+        int id PK
+        varchar genre_name
+    }
+    practice_songs ||--|{ practice : includes
+    practice_songs{
+        int id pk
+        varchar description
+        int practiceId FK
+        int routineId FK
+    }
+
+    practice ||--|{ routines: includes
+    practice {
+        int id PK
+        varchar name
+        dateFormat date_created
+        int routineId FK
+
+    }
+    routines ||--|{ scales: includes
+    routines ||--|{ techniques: includes
+    routines {
+        int id PK
+        varchar name
+        varchar description
+        int projectId FK
+        int techniqueId FK
+        int scaleId FK
+    }
+    scales {
+        int id PK
+        varchar key
+        varchar name
+    }
+    techniques {
+        int id PK
+        int complexity
+        varchar name
+    }
+```
