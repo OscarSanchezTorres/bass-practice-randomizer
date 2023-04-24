@@ -118,3 +118,378 @@ erDiagram
         varchar name
     }
 ```
+
+## API Specification:
+
+Base URL: https://localhost:8080/api/v1
+
+Endpoints:
+
+1. GET /users
+
+* Description: Retrieve a list of all users.
+* Response:
+```
+Status: 200 OK
+[
+  {
+    "id": 1,
+    "first_name": "John",
+    "second_name": "Doe",
+    "email": "johndoe@example.com",
+    "password": "********"
+  },
+  {
+    "id": 2,
+    "first_name": "Jane",
+    "second_name": "Doe",
+    "email": "janedoe@example.com",
+    "password": "********"
+  }
+]
+```
+2. GET /users/:id
+* Description: Retrieve a single user by their id.
+* Response:
+```
+Status: 200 OK
+{
+  "id": 1,
+  "first_name": "John",
+  "second_name": "Doe",
+  "email": "johndoe@example.com"
+}
+```
+3. POST /users
+
+* Description: Create a new user.
+* Request:
+```
+{
+  "first_name": "John",
+  "second_name": "Doe",
+  "email": "johndoe@example.com",
+  "password": "********"
+}
+```
+* Response:
+```
+Status: 201 Created
+{
+  "id": 3,
+  "first_name": "John",
+  "second_name": "Doe",
+  "email": "johndoe@example.com",
+  "password": "********"
+}
+```
+
+4. PUT /users/:id
+
+* Description: Update an existing user by their id.
+* Request:
+```
+{
+  "first_name": "Jane",
+  "second_name": "Doe",
+  "email": "janedoe@example.com"
+}
+```
+* Response:
+```
+Status: 200 OK
+{
+  "id": 2,
+  "first_name": "Jane",
+  "second_name": "Doe",
+  "email": "janedoe@example.com"
+}
+```
+
+5. DELETE /users/:id
+* Description: Delete an existing user by their id.
+* Response:
+```
+Status: 204 No Content
+```
+
+6. GET /projects
+
+* Description: Retrieve a list of all projects.
+* Response:
+```
+Status: 200 OK
+[
+  {
+    "id": 1,
+    "name": "Project 1",
+    "date_created": "2023-04-20",
+    "user_id": 1
+  },
+  {
+    "id": 2,
+    "name": "Project 2",
+    "date_created": "2023-04-21",
+    "user_id": 2
+  }
+]
+```
+
+7. GET /projects/:id
+
+* Description: Retrieve a single project by its id.
+* Response:
+```
+Status: 200 OK
+{
+  "id": 1,
+  "name": "Project A",
+  "date_created": "2022-01-01T00:00:00Z",
+  "user_id": 1
+}
+```
+
+8. GET users/:id/projects
+
+* Description: Retrieve all projects for a user.
+* Response:
+```
+Status: 200 OK
+{
+  "id": 1,
+  "name": "Project A",
+  "date_created": "2022-01-01T00:00:00Z",
+  "user_id": 1
+}
+```
+
+9. POST /projects
+
+* Description: Create a new project
+* Request:
+```
+{
+  "name": "Project 1",
+  "date_created": "2023-04-20",
+  "user_id": 1
+}
+```
+* Response:
+```
+Status: 201 Created
+{
+  "id": 3,
+  "name": "Project 1",
+  "date_created": "2023-04-20",
+  "user_id": 1
+}
+```
+
+10. GET /routine
+
+* Description: Retrieve a list of all routines.
+* Response:
+```
+Status: 200 OK
+[
+  {
+    "id": 1,
+    "name": "Routine 1",
+    "description": "Fingering routine",
+    "project_id": 1
+    "technique_id": 1
+    "scale_id": 1
+  },
+  {
+    "id": 1,
+    "name": "Routine 2",
+    "description": "Picking routine",
+    "project_id": 2
+    "technique_id": 2
+    "scale_id": 1
+  }
+]
+```
+
+11. GET /routine/:id
+
+* Description: Retrieve a single routine by its id.
+* Response:
+```
+Status: 200 OK
+{
+    "id": 1,
+    "name": "Routine 2",
+    "description": "Picking routine",
+    "project_id": 2
+    "technique_id": 2
+    "scale_id": 1
+}
+```
+
+12. GET projects/:id/routine
+
+* Description: Retrieve all routines for a project.
+* Response:
+```
+Status: 200 OK
+{
+    "id": 1,
+    "name": "Routine 2",
+    "description": "Picking routine",
+    "project_id": 2
+    "technique_id": 2
+    "scale_id": 1
+}
+```
+
+13. POST /routine
+
+* Description: Create a new routine
+* Request:
+```
+{
+    "id": 1,
+    "name": "Routine 2",
+    "description": "Picking routine",
+    "project_id": 2
+    "technique_id": 2
+    "scale_id": 1
+}
+```
+* Response:
+```
+Status: 201 Created
+{
+    "id": 1,
+    "name": "Routine 2",
+    "description": "Picking routine",
+    "project_id": 2
+    "technique_id": 2
+    "scale_id": 1
+}
+```
+
+14. GET /songs
+
+* Description: Retrieve a list of all songs
+* Response:
+```
+Status: 200 OK
+[
+  {
+    "id": 1,
+    "name": "Song 1",
+    "artist": "Artist 1",
+    "album": "Album 1"
+  },
+  {
+    "id": 2,
+    "name": "Song 2",
+    "artist": "Artist 2",
+    "album": "Album 2"
+  }
+]
+```
+
+15. GET projects/:id/songs
+
+* Description: Retrieve all songs for a project.
+* Response:
+```
+Status: 200 OK
+[
+  {
+    "id": 1,
+    "name": "Song 1",
+    "artist": "Artist 1",
+    "album": "Album 1"
+  },
+  {
+    "id": 2,
+    "name": "Song 2",
+    "artist": "Artist 2",
+    "album": "Album 2"
+  }
+]
+```
+
+16. POST /songs
+
+* Description: Create a new song
+* Request:
+```
+{
+  "name": "Song 1",
+  "artist": "Artist 1",
+  "album": "Album 1"
+}
+```
+* Response:
+```
+Status: 201 Created
+{
+  "id": 3,
+  "name": "Song 1",
+  "artist": "Artist 1",
+  "album": "Album 1"
+}
+```
+
+17. GET /genres
+
+* Description: Retrieve a list of all genres
+* Response:
+```
+Status: 200 OK
+[
+  {
+    "id": 1,
+    "name": "Rock",
+  },
+  {
+    "id": 2,
+    "name": "Metal",
+  }
+]
+```
+
+18. GET /scales
+
+* Description: Retrieve a list of all scales
+* Response:
+```
+Status: 200 OK
+[
+  {
+    "id": 1,
+    "key": "C",
+    "name": "C Major",
+  },
+  {
+    "id": 2,
+    "key": "D",
+    "name": "D Major",
+  }
+]
+```
+
+19. GET /techniques
+
+* Description: Retrieve a list of all techniques
+* Response:
+```
+Status: 200 OK
+[
+  {
+    "id": 1,
+    "complexity": "Beginner",
+    "name": "Fingering",
+  },
+  {
+    "id": 2,
+    "complexity": "Beginner",
+    "name": "Picking",
+  }
+]
+```
