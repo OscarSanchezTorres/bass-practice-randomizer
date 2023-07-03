@@ -137,14 +137,12 @@ Status: 200 OK
     "first_name": "John",
     "second_name": "Doe",
     "email": "johndoe@example.com",
-    "password": "********"
   },
   {
     "id": 2,
     "first_name": "Jane",
     "second_name": "Doe",
     "email": "janedoe@example.com",
-    "password": "********"
   }
 ]
 ```
@@ -157,7 +155,23 @@ Status: 200 OK
   "id": 1,
   "first_name": "John",
   "second_name": "Doe",
-  "email": "johndoe@example.com"
+  "email": "johndoe@example.com",
+  "projects": [
+    {
+        "id": 1,
+        "name": "Project 1",
+        "date_created": "2023-04-20",
+        "routines": [
+            {
+                "id": 1,
+                "name": "Routine 1",
+                "description": "Fingering routine",
+                "technique_id": 1
+                "scale_id": 1
+            }
+        ]
+    },
+  ]
 }
 ```
 3. POST /users
@@ -180,7 +194,6 @@ Status: 201 Created
   "first_name": "John",
   "second_name": "Doe",
   "email": "johndoe@example.com",
-  "password": "********"
 }
 ```
 
@@ -192,7 +205,8 @@ Status: 201 Created
 {
   "first_name": "Jane",
   "second_name": "Doe",
-  "email": "janedoe@example.com"
+  "email": "janedoe@example.com",
+  "password": "********"
 }
 ```
 * Response:
@@ -249,21 +263,7 @@ Status: 200 OK
 }
 ```
 
-8. GET users/:id/projects
-
-* Description: Retrieve all projects for a user.
-* Response:
-```
-Status: 200 OK
-{
-  "id": 1,
-  "name": "Project A",
-  "date_created": "2022-01-01T00:00:00Z",
-  "user_id": 1
-}
-```
-
-9. POST /projects
+8. POST /projects
 
 * Description: Create a new project
 * Request:
@@ -285,33 +285,68 @@ Status: 201 Created
 }
 ```
 
-10. GET /routine
+9. PUT /projects/:id
+
+* Description: Update an existing project by their id.
+* Request:
+```
+{
+  "id": 3,
+  "name": "Project 1111",
+  "user_id": 1
+}
+```
+* Response:
+```
+Status: 200 OK
+{
+  "id": 3,
+  "name": "Project 1111",
+  "date_created": "2023-05-09T00:00:00.000Z",
+  "user_id": 1
+}
+```
+
+10. DELETE /projects/:id
+* Description: Delete an existing project by their id.
+* Response:
+```
+Status: 204 No Content
+```
+
+11. GET /routines
 
 * Description: Retrieve a list of all routines.
 * Response:
 ```
 Status: 200 OK
-[
-  {
-    "id": 1,
-    "name": "Routine 1",
-    "description": "Fingering routine",
-    "project_id": 1
-    "technique_id": 1
-    "scale_id": 1
-  },
-  {
-    "id": 1,
-    "name": "Routine 2",
-    "description": "Picking routine",
-    "project_id": 2
-    "technique_id": 2
-    "scale_id": 1
-  }
-]
+{
+  "id": 1,
+  "name": "Routine 1",
+  "description": "Fingering routine",
+  "project_id": 1
+  "technique_id": 1
+  "scale_id": 1
+}
 ```
 
-11. GET /routine/:id
+12. PUT /routines/:id
+
+* Description: Update an existing routine by their id.
+* Response:
+```
+Status: 200 OK
+{
+  "id": 1,
+  "name": "Routine 1",
+  "description": "Fingering routine",
+  "project_id": 1
+  "technique_id": 1
+  "scale_id": 1
+}
+```
+
+13. GET /routines/:id
 
 * Description: Retrieve a single routine by its id.
 * Response:
@@ -327,23 +362,7 @@ Status: 200 OK
 }
 ```
 
-12. GET projects/:id/routine
-
-* Description: Retrieve all routines for a project.
-* Response:
-```
-Status: 200 OK
-{
-    "id": 1,
-    "name": "Routine 2",
-    "description": "Picking routine",
-    "project_id": 2
-    "technique_id": 2
-    "scale_id": 1
-}
-```
-
-13. POST /routine
+14. POST /routines
 
 * Description: Create a new routine
 * Request:
@@ -352,9 +371,10 @@ Status: 200 OK
     "id": 1,
     "name": "Routine 2",
     "description": "Picking routine",
-    "project_id": 2
-    "technique_id": 2
-    "scale_id": 1
+    "project_id": 2,
+    "technique_id": 2,
+    "scale_id": 1,
+    "user_id": 1
 }
 ```
 * Response:
@@ -370,7 +390,14 @@ Status: 201 Created
 }
 ```
 
-14. GET /songs
+15. DELETE /routines/:id
+* Description: Delete an existing routine by their id.
+* Response:
+```
+Status: 204 No Content
+```
+
+16. GET /songs
 
 * Description: Retrieve a list of all songs
 * Response:
@@ -392,7 +419,7 @@ Status: 200 OK
 ]
 ```
 
-15. GET projects/:id/songs
+17. GET projects/:id/songs
 
 * Description: Retrieve all songs for a project.
 * Response:
@@ -414,7 +441,7 @@ Status: 200 OK
 ]
 ```
 
-16. POST /songs
+18. POST /songs
 
 * Description: Create a new song
 * Request:
@@ -436,7 +463,7 @@ Status: 201 Created
 }
 ```
 
-17. GET /genres
+19. GET /genres
 
 * Description: Retrieve a list of all genres
 * Response:
@@ -454,7 +481,7 @@ Status: 200 OK
 ]
 ```
 
-18. GET /scales
+20. GET /scales
 
 * Description: Retrieve a list of all scales
 * Response:
@@ -474,7 +501,7 @@ Status: 200 OK
 ]
 ```
 
-19. GET /techniques
+21. GET /techniques
 
 * Description: Retrieve a list of all techniques
 * Response:

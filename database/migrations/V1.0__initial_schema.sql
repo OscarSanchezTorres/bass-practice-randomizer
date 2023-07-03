@@ -4,15 +4,17 @@ CREATE TABLE IF NOT EXISTS public.users
     first_name text not null,
     second_name text not null,
     email text not null,
-    password text not null
+    password text not null,
+    active boolean default true not null
 );
 
 CREATE TABLE IF NOT EXISTS public.projects
 (
     id serial constraint projects_pk primary key,
     name text not null,
-    date_created date not null,
-    user_id int constraint project_user_user_id_fk references public.users(id)
+    date_created date not null default CURRENT_DATE,
+    user_id int constraint project_user_user_id_fk references public.users(id),
+    active boolean default true not null
 );
 
 CREATE TABLE IF NOT EXISTS public.songs
@@ -21,7 +23,8 @@ CREATE TABLE IF NOT EXISTS public.songs
     name text not null,
     artist text not null,
     album text not null,
-    key text not null
+    key text not null,
+    active boolean default true not null
 );
 
 CREATE TABLE IF NOT EXISTS public.project_songs
@@ -52,7 +55,9 @@ CREATE TABLE IF NOT EXISTS public.routines
     description text not null,
     project_id int constraint routine_project_project_id_fk references public.projects(id),
     technique_id int constraint routine_technique_technique_id_fk references public.techniques(id),
-    scale_id int constraint routine_scale_scale_id_fk references public.scales(id)
+    scale_id int constraint routine_scale_scale_id_fk references public.scales(id),
+    user_id int constraint routine_user_user_id_fk references public.users(id),
+    active boolean default true not null
 );
 
 CREATE TABLE IF NOT EXISTS public.practices

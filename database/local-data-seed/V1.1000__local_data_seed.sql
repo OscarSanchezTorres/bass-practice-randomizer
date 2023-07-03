@@ -8,7 +8,8 @@ INSERT INTO users (id, first_name, second_name, email, password) VALUES
   (7, 'Tom', 'Wilson', 'tomwilson@example.com', 'password7'),
   (8, 'Emily', 'Davis', 'emilydavis@example.com', 'password8'),
   (9, 'Michael', 'Taylor', 'michaeltaylor@example.com', 'password9'),
-  (10, 'Jessica', 'Anderson', 'jessicaanderson@example.com', 'password10');
+  (10, 'Jessica', 'Anderson', 'jessicaanderson@example.com', 'password10'); 
+  ALTER SEQUENCE users_id_seq RESTART WITH 11;
 
   INSERT INTO songs (id, name, artist, album, key) VALUES
   (1, 'Bohemian Rhapsody', 'Queen', 'A Night at the Opera', 'B♭'),
@@ -39,6 +40,7 @@ INSERT INTO users (id, first_name, second_name, email, password) VALUES
   (26, 'Despacito', 'Luis Fonsi ft. Daddy Yankee', 'Vida', 'B♭'),
   (27, 'Smooth', 'Santana ft. Rob Thomas', 'Supernatural', 'D♯'),
   (28, 'Hello', 'Adele', '25', 'A♭');
+  ALTER SEQUENCE songs_id_seq RESTART WITH 29;
 
   INSERT INTO song_genres (id, song_id, genre_id) VALUES
   (1, 1, 1),
@@ -69,21 +71,27 @@ INSERT INTO users (id, first_name, second_name, email, password) VALUES
   (26, 26, 3),
   (27, 27, 2),
   (28, 28, 3);
+  ALTER SEQUENCE song_genres_id_seq RESTART WITH 29;
 
 INSERT INTO projects (id, name, date_created, user_id) VALUES
 (1, 'Project 1', '02/07/2022 13:43:00', 1),
 (2, 'Project 2', '02/08/2022 13:43:00', 2);
+ALTER SEQUENCE projects_id_seq RESTART WITH 3;
 
 INSERT INTO routines (id, name, description, project_id, technique_id, scale_id) VALUES
 (1, 'Example 1', 'This is a routine example', 1, 1, 49),
 (2, 'Example 2', 'This is a routine example', 2, 2, 20);
+ALTER SEQUENCE routines_id_seq RESTART WITH 3;
 
 INSERT INTO project_songs (id, project_id, song_id) VALUES
 (1, 1, 1),
 (2, 2, 2);
+ALTER SEQUENCE project_songs_id_seq RESTART WITH 3;
 
 INSERT INTO practices (id, name, date_created, routine_id) VALUES
 (1, 'First practice', '02/07/2022 13:43:00', 1);
+ALTER SEQUENCE practices_id_seq RESTART WITH 2;
 
 INSERT INTO practice_songs (id, description, sequence, practice_id, song_id) VALUES
 (1, 'Warm up song', 1, 1, 7);
+ALTER SEQUENCE practice_songs_id_seq RESTART WITH 2
