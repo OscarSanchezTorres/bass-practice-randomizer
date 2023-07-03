@@ -200,17 +200,16 @@ describe("users controller", () => {
         password: "password123",
       },
     };
-    prisma.users = {
-      findMany: jest.fn(),
-      update: jest.fn(),
-    };
-    const res = {};
-    res.status = jest.fn().mockReturnValue(res);
-    res.json = jest.fn().mockReturnValue(res);
+  
+    
 
     it("Should update the user and return a 200 status with updated user data", async () => {
       // arrange
       bcrypt.hash = jest.fn().mockResolvedValueOnce("hashedPassword");
+
+      const res = {};
+      res.status = jest.fn().mockReturnValue(res);
+      res.json = jest.fn().mockReturnValue(res);
 
       const user = {
         first_name: "John",
@@ -218,8 +217,11 @@ describe("users controller", () => {
         email: "john@example.com",
       };
 
-      prisma.users.findMany.mockResolvedValueOnce([{ id: 1 }]);
-      prisma.users.update.mockResolvedValueOnce(user);
+      prisma.users = {
+        findMany: jest.fn().mockResolvedValueOnce(
+        [{ id: 1 }]),
+        update: jest.fn().mockResolvedValueOnce({ id: 1 }),
+      };
 
       //act
       await usersController.updateUser(req, res);
