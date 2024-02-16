@@ -11,6 +11,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const swaggerUI = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
+const cors = require('cors');
 const app = express()
 
 const swaggerDefinition = {
@@ -32,6 +33,7 @@ const openapiSpecification = swaggerJSDoc({
   apis: ["./routers/*.js"],
 });
 
+app.use(cors());
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(openapiSpecification));
 app.use("/swagger.json", (req, res) =>
   res.json(openapiSpecification).status(200)
@@ -40,7 +42,7 @@ app.use("/swagger.json", (req, res) =>
 app.use(bodyParser.json());
 
 app.use("/authentication", authenticationRouter);
-app.all("*", verifyToken);
+/* app.all("*", verifyToken); */
 
 
 app.use("/users", usersRouter);
