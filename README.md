@@ -1,5 +1,5 @@
 # Bass Technique and Scales Randomizer
-SDET project for the Unosquare centre of excellence
+SDET project for the Unosquare centre of excellence.
 
 ## Problem definition:
 It is necessary to create a simple web app that allows the user to create projects such as songs and practice routines and includes features like randomized scales and bass techniques so that practice time is more productive and covers more areas to improve bass playing. Other products are more complex and require signing up and paying subscriptions 
