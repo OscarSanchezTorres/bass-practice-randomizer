@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model flyway_schema_history {
+  installed_rank Int      @id(map: "flyway_schema_history_pk")
+  version        String?  @db.VarChar(50)
+  description    String   @db.VarChar(200)
+  type           String   @db.VarChar(20)
+  script         String   @db.VarChar(1000)
+  checksum       Int?
+  installed_by   String   @db.VarChar(100)
+  installed_on   DateTime @default(now()) @db.Timestamp(6)
+  execution_time Int
+  success        Boolean
+
+  @@index([success], map: "flyway_schema_history_s_idx")
+}
+
+model genres {
+  id          Int           @id(map: "genres_pk") @default(autoincrement())
+  name        String
+  song_genres song_genres[]
+}
+
+model practice_songs {
+  id          Int        @id(map: "practice_songs_pk") @default(autoincrement())
+  description String
+  sequence    String
+  practice_id Int?
+  song_id     Int?
+  practices   practices? @relation(fields: [practice_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "practice_id_practice_practice_id_fk")
+  songs       songs?     @relation(fields: [song_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "practice_song_song_song_id_fk")
+}
+
+model practices {
+  id             Int              @id(map: "practice_pk") @default(autoincrement())
+  name           String
+  date_created   DateTime         @db.Date
+  routine_id     Int?
+  practice_songs practice_songs[]
+  routines       routines?        @relation(fields: [routine_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "practice_routine_routine_id_fk")
+}
+
+model project_songs {
+  id         Int       @id(map: "project_songs_pk") @default(autoincrement())
+  project_id Int?
+  song_id    Int?
+  projects   projects? @relation(fields: [project_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "project_song_project_project_id_fk")
+  songs      songs?    @relation(fields: [song_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "project_song_song_song_id_fk")
+}
+
+model projects {
+  id            Int             @id(map: "projects_pk") @default(autoincrement())
+  name          String
+  date_created  DateTime        @default(dbgenerated("CURRENT_DATE")) @db.Date
+  user_id       Int?
+  active        Boolean         @default(true)
+  project_songs project_songs[]
+  users         users?          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "project_user_user_id_fk")
+  routines      routines[]
+}
+
+model routines {
+  id           Int         @id(map: "routines_pk") @default(autoincrement())
+  name         String
+  description  String
+  project_id   Int?
+  technique_id Int?
+  scale_id     Int?
+  user_id      Int?
+  active       Boolean     @default(true)
+  practices    practices[]
+  projects     projects?   @relation(fields: [project_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "routine_project_project_id_fk")
+  scales       scales?     @relation(fields: [scale_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "routine_scale_scale_id_fk")
+  techniques   techniques? @relation(fields: [technique_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "routine_technique_technique_id_fk")
+  users        users?      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "routine_user_user_id_fk")
+}
+
+model scales {
+  id       Int        @id(map: "scales_pk") @default(autoincrement())
+  key      String
+  name     String
+  routines routines[]
+}
+
+model song_genres {
+  id       Int     @id(map: "song_genres_pk") @default(autoincrement())
+  song_id  Int?
+  genre_id Int?
+  genres   genres? @relation(fields: [genre_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "song_genre_genre_genre_id_fk")
+  songs    songs?  @relation(fields: [song_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "song_genre_song_song_id_fk")
+}
+
+model songs {
+  id             Int              @id(map: "songs_pk") @default(autoincrement())
+  name           String
+  artist         String
+  album          String
+  key            String
+  active         Boolean          @default(true)
+  practice_songs practice_songs[]
+  project_songs  project_songs[]
+  song_genres    song_genres[]
+}
+
+model techniques {
+  id         Int        @id(map: "techniques_pk") @default(autoincrement())
+  complexity String
+  name       String
+  routines   routines[]
+}
+
+model users {
+  id          Int        @id(map: "users_pk") @default(autoincrement())
+  first_name  String
+  second_name String
+  email       String
+  password    String
+  active      Boolean    @default(true)
+  projects    projects[]
+  routines    routines[]
+}
