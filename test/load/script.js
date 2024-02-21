@@ -13,7 +13,7 @@ export const options = {
 export default function () {
   group("auth", () => {
     const response = http.post(
-      "http://localhost:3001/authentication",
+      "http://localhost:3000/authentication",
       {
         email: "dfgfdg@sfdsdf.com",
         password: "sdfsdfsd!2341",
