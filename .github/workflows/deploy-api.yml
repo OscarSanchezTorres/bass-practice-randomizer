@@ -23,10 +23,10 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: "us-east-2"
+        aws-region: "eu-west-1"
     - name: Install AWS Lightsail Client
       run: |
-          curl "https://s3.us-east-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "lightsailctl"
+          curl "https://s3.eu-west-1.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "lightsailctl"
           sudo mv "lightsailctl" "/usr/local/bin/lightsailctl"
           sudo chmod +x /usr/local/bin/lightsailctl
     - name: Build and push image to Lightsail
@@ -35,7 +35,7 @@ jobs:
         docker build --build-arg API_DB_URL="${{ secrets.API_DB_URL }}" -t bass-practice:latest .
     - name: Push Image Lightsail
       run: |
-        aws lightsail push-container-image --service-name bass-service-1 --label bass-practice --image bass-practice:latest
+        aws lightsail push-container-image --region eu-west-1 --service-name bass-service-1 --label bass-practice --image bass-practice:latest
     - name: Deploy Service
       run: |
           aws lightsail get-container-images --service-name bass-service-1 | jq --raw-output ".containerImages[0].image" > image.txt
